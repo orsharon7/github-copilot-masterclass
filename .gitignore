@@ -1,0 +1,17 @@
+# Environment Variables
+.env
+
+# Virtual Environment Directories
+venv/
+env/
+.venv/
+ENV/
+
+# VSCODE Configuration Files
+.vscode
+
+# Copilot Instructions
+.github/copilot-instructions.md
+
+# Weather MCP Server App
+weather/
