@@ -333,7 +333,7 @@ Once you have added an MCP server, you can use the tools it provides in agent mo
 3. Test the server by running:
     - `What’s the weather in Sacramento?`
     - `What are the active weather alerts in Texas?`
-    - ![Chat MCP](media/Chat_MCP.png | width=400)
+    - ![Chat MCP](media/Chat_MCP.png)
 
 
 ---
