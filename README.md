@@ -61,7 +61,6 @@ You are assisting developers in building high-quality Python Flask web applicati
 - Remind developers to restart the Flask server after major code or environment changes.
 ```
 
-- Commit this file to your repository.
 - GitHub Copilot will automatically begin following these custom instructions, improving accuracy and relevance.
 
 ### Step 3: Create the `.env` File
