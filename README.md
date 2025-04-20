@@ -1,5 +1,7 @@
 # Workshop: Build a Chat App with Steve Jobs Using GitHub Copilot Agent Mode
 
+![Workshop Banner](media/Banner.png)
+
 In this hands-on workshop, you'll create an interactive chat application featuring Steve Jobs, powered by Azure OpenAI's GPT-4o, and assisted by GitHub Copilot Agent Mode.
 
 ## Prerequisites
@@ -10,11 +12,13 @@ In this hands-on workshop, you'll create an interactive chat application featuri
 ## Step-by-Step Guide
 
 ### Step 1: Initial Application Setup
-Use the following initial prompt in GitHub Copilot:
+Use the following initial prompt in GitHub Copilot Agent Mode:
 
-**Prompt (include `chat.png`):**
+**Prompt (include `chat.png`!):**
 
-> Generate a basic Python Flask application based on the image. The app should enable a chat interaction styled similarly to the provided image, simulating a conversation with Steve Jobs.
+![Initial Chat Interface](media/Initial_Chat.png)
+
+Prompt: > Generate a basic Python Flask application based on the image. The app should enable a chat interaction styled similarly to the provided image, simulating a conversation with Steve Jobs.
 
 - Review the generated files and ensure the Flask app runs without errors.
 
