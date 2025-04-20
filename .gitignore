@@ -1,11 +1,15 @@
 # Environment Variables
 .env
+**/.env
+**/.env.template
 
 # Virtual Environment Directories
 venv/
 env/
 .venv/
 ENV/
+**/venv/
+
 
 # VSCODE Configuration Files
 .vscode

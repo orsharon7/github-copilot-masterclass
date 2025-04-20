@@ -285,3 +285,15 @@ Once you have added an MCP server, you can use the tools it provides in agent mo
 
 4. Check out the new feature it developed, in my case:
 ![Color Button Feature](media/Color_Feature.gif)
+
+
+## Getting Started
+1.  [Learn About Github Copilot](01-explore-github-copilot.md)
+2. [Jump Directly to the Workshop](02-application-setup.md)
+---
+
+
+## Additional Resources
+- https://github.com/github/github-mcp-server
+- https://modelcontextprotocol.io/introduction
+- https://code.visualstudio.com/docs/copilot/chat/mcp-servers
