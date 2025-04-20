@@ -24,7 +24,7 @@ To enhance GitHub Copilot’s responses tailored specifically for this workshop,
 
 **Create the Copilot Instructions**
 
-Add a file named `.github/copilot/custom_instructions.md` to your repository with the following content:
+Add a file named `.github/copilot/copilot_instructions.md` to your repository with the following content:
 
 ```markdown
 # GitHub Copilot Custom Instructions
