@@ -20,7 +20,9 @@ Use the following initial prompt in GitHub Copilot Agent Mode:
 
 Prompt: > Generate a basic Python Flask application based on the image. The app should enable a chat interaction styled similarly to the provided image, simulating a conversation with Steve Jobs.
 
-- Review the generated files and ensure the Flask app runs without errors.
+- Copilot might ask for an empty workspace, use the predefined action to create `chat` directory, in the chat and cotinue.
+- After copilot finished coding the initial chat app, explore the different files and run the app. It should look something like this:
+![Initial Chat with Steve](media/Initial_Chat_Steve.png)
 
 ### Step 2: Setting Up GitHub Copilot Agent Instructions
 
@@ -28,47 +30,7 @@ To enhance GitHub Copilot’s responses tailored specifically for this workshop,
 
 GitHub Copilot will automatically begin following these custom instructions, improving accuracy and relevance.
 
-
-### Step 3: Create the `.env` File
-
-Rename the `.env.sample` to `.env` file in the root directory and replace the placeholder values with your actual Azure OpenAI credentials:
-
-```env
-AZURE_OPENAI_GPT4O_API_KEY="your-api-key"
-AZURE_OPENAI_GPT4O_ENDPOINT="https://your-resource-name.openai.azure.com"
-```
-
-### Step 4: Real-Time Chat + Copilot-Guided Integration
-
-To streamline your development process and validate GPT-4o functionality before building the full app, we’ve included a standalone helper script.
-
-
-#### 1. Optional: Test GPT-4o in Real-Time
-
-Use the `azure_openai_chat.py` script to interact directly with Azure OpenAI GPT-4o from the terminal.
-
-To run:
-
-```bash
-pip install openai python-dotenv
-python utils/azure_openai_chat.py
-```
-
-You’ll be able to chat with Steve Jobs in real-time — no Flask setup required. This helps validate your credentials, test prompts, and see how GPT-4o responds before wiring it into your app.
-
-#### 2. Use GitHub Copilot to Integrate the Chat Logic
-
-Now that you’ve validated your GPT-4o setup, let Copilot help you integrate it into your Flask app.
-
-**Prompt (include the `azure_openai_chat.py` file):**
-
-> Use the `chat_with_steve_jobs()` function from `utils/azure_openai_chat.py` to handle user messages in the Flask route `/send_message`. Replace any existing mock response logic with a call to that function.
-
-This gives Copilot a working reference to follow — and ensures it uses the correct Azure OpenAI client setup.
-
-### Step 5: Adjusting the Chat Interface
-
-After backend adjustments, refine your application's UI:
+Now we can refine our application's UI:
 
 **Prompt (include `chat.png` again):**
 
@@ -76,11 +38,26 @@ After backend adjustments, refine your application's UI:
 
 Confirm the interface is correctly updated upon running the Flask application.
 
-### Step 6: Validating GPT-4o Integration
 
-Test your application thoroughly:
-- Verify chat responses are correctly received and displayed.
-- Check logs to ensure exceptions, if any, are clearly printed and actionable.
+### Step 3: Real-Time Chat with Azure OpenAI
+
+GIthub Copilot has multiple models to use for writing code. Click on GPT-4o and explore the different offerings:
+
+![Github Copilot Models](media/Copilot-Models.png)
+
+Now switch to `Claude 3.7 Sonnet`
+
+**Prompt:**
+
+> Integrate real-time chat functionality into the existing Flask application using Azure OpenAI’s GPT-4o. Utilize the latest openai Python package to interact with Azure OpenAI. Ensure the integration supports streaming responses for a seamless user experience. Handle authentication using Azure OpenAI credentials and manage API requests appropriately.
+
+
+Fill the details in the `.env` file created in the root directory and replace the placeholder values with your actual Azure OpenAI details. 
+Note! make sure the deployment name and the api versions are correct.
+
+Install dependecies, run the app and test GPT-4o in real-time:
+
+![chat sample video](media/chat_vid.gif)
 
 
 
