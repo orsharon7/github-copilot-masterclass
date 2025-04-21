@@ -154,4 +154,4 @@ if __name__ == '__main__':
         logger.error("Please set these in your .env file")
     else:
         logger.info("Starting Flask application")
-        app.run(debug=True)
+        app.run(debug=True, host='0.0.0.0', port=5000)

@@ -277,6 +277,93 @@
             background-color: var(--button-hover);
         }
 
+        /* Message reaction styles */
+        .message-footer {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .reaction-button {
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            margin-left: 5px;
+            color: var(--text-color);
+        }
+
+        .message.user .reaction-button {
+            margin-right: 5px;
+            margin-left: 0;
+            color: var(--user-message-color);
+        }
+
+        .reaction-button:hover {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        .reaction-panel {
+            display: none;
+            position: absolute;
+            background-color: var(--chat-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 5px 10px;
+            box-shadow: var(--box-shadow);
+            z-index: 10;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+
+        .reaction-panel.visible {
+            display: flex;
+        }
+
+        .emoji-option {
+            cursor: pointer;
+            padding: 5px;
+            font-size: 20px;
+            transition: transform 0.2s ease;
+        }
+
+        .emoji-option:hover {
+            transform: scale(1.3);
+        }
+
+        .message-reactions {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 5px;
+        }
+
+        .reaction {
+            background-color: var(--message-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2px 6px;
+            margin-right: 4px;
+            margin-top: 4px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .reaction-count {
+            margin-left: 3px;
+            font-size: 12px;
+        }
+
+        .reaction:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+
+        .message.user .reaction {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
         /* Responsive styles */
         @media (max-width: 768px) {
             body {
@@ -303,10 +390,6 @@
     <div id="chat-container">
         <div id="chat-box">
             <!-- Messages will appear here -->
-            <div class="message steve">
-                <img src="/static/steve.png" alt="Steve Jobs" onerror="this.src='https://via.placeholder.com/40?text=SJ'">
-                <div class="message-content">Hello, I'm Steve. What would you like to talk about today?</div>
-            </div>
         </div>
         <div class="typing-indicator" id="typing-indicator">
             <span></span>
@@ -341,8 +424,56 @@
             document.body.setAttribute('data-theme', savedTheme);
             updateThemeButtonText(savedTheme);
             
+            // Add initial message from Steve
+            appendMessage("Hello, I'm Steve. What would you like to talk about today?", false);
+            
+            // Load any saved reactions from localStorage
+            loadSavedReactions();
+            
             // Focus on input when page loads
             messageInput.focus();
+            
+            // Function to load saved reactions from localStorage
+            function loadSavedReactions() {
+                const savedReactions = JSON.parse(localStorage.getItem('chat-reactions') || '{}');
+                
+                // Get all messages in the chat
+                const messages = document.querySelectorAll('.message');
+                messages.forEach(message => {
+                    const messageId = message.dataset.id;
+                    if (savedReactions[messageId]) {
+                        const reactionsContainer = message.querySelector('.message-reactions');
+                        
+                        // For each reaction type on this message
+                        Object.entries(savedReactions[messageId]).forEach(([emoji, count]) => {
+                            const reaction = document.createElement('div');
+                            reaction.classList.add('reaction');
+                            reaction.dataset.emoji = emoji;
+                            reaction.dataset.count = count;
+                            
+                            const emojiSpan = document.createElement('span');
+                            emojiSpan.textContent = emoji;
+                            
+                            const countSpan = document.createElement('span');
+                            countSpan.classList.add('reaction-count');
+                            countSpan.textContent = count;
+                            
+                            reaction.appendChild(emojiSpan);
+                            reaction.appendChild(countSpan);
+                            
+                            // Add click handler to increment reaction
+                            reaction.onclick = function() {
+                                const newCount = parseInt(reaction.dataset.count) + 1;
+                                reaction.dataset.count = newCount;
+                                countSpan.textContent = newCount;
+                                saveReactions(messageId, emoji);
+                            };
+                            
+                            reactionsContainer.appendChild(reaction);
+                        });
+                    }
+                });
+            }
             
             // Function to show typing indicator
             function showTypingIndicator() {
@@ -370,6 +501,7 @@
                 const messageDiv = document.createElement('div');
                 messageDiv.classList.add('message');
                 messageDiv.classList.add(isUser ? 'user' : 'steve');
+                messageDiv.dataset.id = Date.now().toString(); // Unique ID for the message
 
                 const img = document.createElement('img');
                 img.src = isUser ? '/static/user.png' : '/static/steve.png';
@@ -380,16 +512,42 @@
                         'https://via.placeholder.com/40?text=SJ';
                 };
 
+                const messageWrapper = document.createElement('div');
+                messageWrapper.classList.add('message-wrapper');
+
                 const contentDiv = document.createElement('div');
                 contentDiv.classList.add('message-content');
                 contentDiv.textContent = content;
 
+                const footerDiv = document.createElement('div');
+                footerDiv.classList.add('message-footer');
+                
+                // Add reaction button
+                const reactionButton = document.createElement('div');
+                reactionButton.classList.add('reaction-button');
+                reactionButton.innerHTML = '😀';
+                reactionButton.setAttribute('title', 'Add reaction');
+                reactionButton.onclick = function(e) {
+                    e.stopPropagation();
+                    showReactionPanel(messageDiv);
+                };
+                
+                footerDiv.appendChild(reactionButton);
+                
+                // Container for reactions
+                const reactionsDiv = document.createElement('div');
+                reactionsDiv.classList.add('message-reactions');
+                
+                messageWrapper.appendChild(contentDiv);
+                messageWrapper.appendChild(footerDiv);
+                messageWrapper.appendChild(reactionsDiv);
+
                 if (isUser) {
-                    messageDiv.appendChild(contentDiv);
+                    messageDiv.appendChild(messageWrapper);
                     messageDiv.appendChild(img);
                 } else {
                     messageDiv.appendChild(img);
-                    messageDiv.appendChild(contentDiv);
+                    messageDiv.appendChild(messageWrapper);
                 }
 
                 chatBox.appendChild(messageDiv);
@@ -466,6 +624,130 @@
                     hideTypingIndicator();
                     appendMessage("Sorry, I'm having trouble connecting right now. Please try again later.", false);
                 });
+            }
+
+            // Function to show reaction panel
+            let currentPanel = null;
+            
+            function showReactionPanel(messageElement) {
+                // Remove any existing panels
+                hideReactionPanel();
+                
+                // Create reaction panel
+                const panel = document.createElement('div');
+                panel.classList.add('reaction-panel');
+                
+                // Add emoji options
+                const emojis = ['👍', '❤️', '😂', '😮', '😢', '👏', '🎉', '🤔'];
+                emojis.forEach(emoji => {
+                    const emojiOption = document.createElement('div');
+                    emojiOption.classList.add('emoji-option');
+                    emojiOption.textContent = emoji;
+                    emojiOption.onclick = function(e) {
+                        e.stopPropagation();
+                        addReaction(messageElement, emoji);
+                        hideReactionPanel();
+                    };
+                    panel.appendChild(emojiOption);
+                });
+                
+                // Position panel near the reaction button
+                const rect = messageElement.getBoundingClientRect();
+                const isUser = messageElement.classList.contains('user');
+                
+                if (isUser) {
+                    panel.style.right = (window.innerWidth - rect.right + 40) + 'px';
+                } else {
+                    panel.style.left = (rect.left + 50) + 'px';
+                }
+                panel.style.top = (rect.top + window.scrollY + 10) + 'px';
+                
+                // Add to DOM and show
+                document.body.appendChild(panel);
+                currentPanel = panel;
+                
+                // Short delay before showing for smooth animation
+                setTimeout(() => {
+                    panel.classList.add('visible');
+                }, 10);
+                
+                // Close panel when clicking outside
+                document.addEventListener('click', hideReactionPanel);
+            }
+            
+            function hideReactionPanel() {
+                if (currentPanel) {
+                    currentPanel.remove();
+                    currentPanel = null;
+                }
+                document.removeEventListener('click', hideReactionPanel);
+            }
+            
+            function addReaction(messageElement, emoji) {
+                const messageId = messageElement.dataset.id;
+                const reactionsContainer = messageElement.querySelector('.message-reactions');
+                
+                // Check if this reaction already exists
+                let existingReaction = null;
+                for (let i = 0; i < reactionsContainer.children.length; i++) {
+                    const reaction = reactionsContainer.children[i];
+                    if (reaction.dataset.emoji === emoji) {
+                        existingReaction = reaction;
+                        break;
+                    }
+                }
+                
+                if (existingReaction) {
+                    // Increment count
+                    const count = parseInt(existingReaction.dataset.count) + 1;
+                    existingReaction.dataset.count = count;
+                    const countSpan = existingReaction.querySelector('.reaction-count');
+                    countSpan.textContent = count;
+                } else {
+                    // Create new reaction
+                    const reaction = document.createElement('div');
+                    reaction.classList.add('reaction');
+                    reaction.dataset.emoji = emoji;
+                    reaction.dataset.count = 1;
+                    
+                    const emojiSpan = document.createElement('span');
+                    emojiSpan.textContent = emoji;
+                    
+                    const countSpan = document.createElement('span');
+                    countSpan.classList.add('reaction-count');
+                    countSpan.textContent = 1;
+                    
+                    reaction.appendChild(emojiSpan);
+                    reaction.appendChild(countSpan);
+                    
+                    // Add click handler to remove/add reaction
+                    reaction.onclick = function() {
+                        const newCount = parseInt(reaction.dataset.count) + 1;
+                        reaction.dataset.count = newCount;
+                        countSpan.textContent = newCount;
+                    };
+                    
+                    reactionsContainer.appendChild(reaction);
+                }
+                
+                // Store in localStorage to persist reactions
+                saveReactions(messageId, emoji);
+            }
+            
+            function saveReactions(messageId, emoji) {
+                // Get existing reactions from localStorage
+                let reactions = JSON.parse(localStorage.getItem('chat-reactions') || '{}');
+                
+                // Initialize if needed
+                if (!reactions[messageId]) {
+                    reactions[messageId] = {};
+                }
+                
+                // Add or increment reaction
+                reactions[messageId][emoji] = (reactions[messageId][emoji] || 0) + 1;
+                
+                // Save back to localStorage
+                localStorage.setItem('chat-reactions', JSON.stringify(reactions));
             }
 
             // Send message on button click
