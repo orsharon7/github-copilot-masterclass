@@ -16,14 +16,14 @@ Explore the following [link](https://github.com/modelcontextprotocol/servers) to
 ### General Architecture
 
 ​MCP follows a client-server architecture where a host application can connect to multiple servers:
-![MCP Architecture](media/MCP_Architecture.png)
-
 * **MCP Hosts**: Programs like Claude Desktop, IDEs, or AI tools that want to access data through MCP
 * **MCP Clients**: Protocol clients that maintain 1:1 connections with servers
 * **MCP Servers**: Lightweight programs that each expose specific capabilities through the standardized Model Context Protocol
 * **Local Data Sources**: Your computer’s files, databases, and services that MCP servers can securely access
 * **Remote Services**: External systems available over the internet (e.g., through APIs) that MCP servers can connect to
-
+<div align="center">
+    <img src="media/MCP_Architecture.png" alt="MCP Architecture" width="600"/>
+</div>
 
 ### MCP Server
 **What we’ll be building**
@@ -64,7 +64,8 @@ uv add "mcp[cli]" httpx openai dotenv
 touch steve-mcp.py
 ```
 
-### 3. Add this code to the your `steve-mcp.py` file
+### 3. Add this code to your `steve-mcp.py` file
+
 ```python
 #!/usr/bin/env python3
 
@@ -224,19 +225,33 @@ if __name__ == "__main__":
     mcp.run(transport='stdio')
 ```
 
+This code creates an MCP server with two powerful tools:
 
-Make sure the .env file has values. Sample:
+* **generate_feature_idea**: Channels Steve Jobs' visionary approach to generate product feature ideas based on understanding user needs
+* **generate_feature_spec**: Creates detailed feature specifications in Steve's distinctive style that GitHub Copilot can use for implementation
+
+The code follows several key patterns:
+
+* Uses the FastMCP library to create a standardized MCP server interface
+* Connects to Azure OpenAI to power the AI interactions
+* Implements helper functions that handle the core logic of generating ideas and specifications
+* Exposes these capabilities as MCP tools using Python decorators
+* Returns formatted markdown to make the results easily readable
+
+Create a `.env` file with your Azure OpenAI credentials:
 ```env
 # Azure OpenAI Configuration
 AZURE_OPENAI_API_KEY=<api-key>
 AZURE_OPENAI_ENDPOINT=https://<azure-openai-name>.openai.azure.com/
 AZURE_OPENAI_DEPLOYMENT=<model-deploymeny-name>
 ```
-Run `uv run steve-mcp.py` to confirm that everything’s working. (if nothing happens its working)
+
+Test your server by running: `uv run steve-mcp.py`. If the command executes without errors (even if there's no visible output), your server is running correctly.
+
 > **Note:** 
-> 1. The FastMCP class leverages Python type hints and docstrings to automatically generate tool definitions. This approach simplifies both the creation and maintenance of MCP tools by ensuring clear, descriptive, and consistent tool interfaces.
-> 2. Helper functions are for querying and formatting the data
-> 3. The tool execution handler is responsible for actually executing the logic of each tool.
+> 1. The FastMCP class leverages Python type hints and docstrings to automatically generate tool definitions, creating clear and consistent tool interfaces.
+> 2. The implementation functions separate the business logic from the MCP tool interface.
+> 3. The server uses stdio transport for seamless integration with Visual Studio Code.
 
 
 
@@ -283,11 +298,32 @@ Once you have added an MCP server, you can use the tools it provides in agent mo
 
 ![Chat MCP](media/Chat_MCP.png)
 
-4. Check out the new feature it developed, in my case:
-![Color Button Feature](media/Color_Feature.gif)
+4. Check out the new feature it developed, in my case it looks like this:
+<div align="center">
+    <img src="media/Color_Feature.gif" alt="Color Feature" width="600"/>
+</div>
+
+5. Now you have Steve Jobs by your side to help you think, definem and design new features, by providing a context to GitHub Copilot to develop it for you. FOr instance, I asked for another feature, something that will have an impact on the user experience but will be easy to implement. This is what I got:
+ <div align="center">
+    <img src="media/Final_App2.gif" alt="Emoji" width="600"/>
+</div>
 
 
-## Getting Started
+## That's It!
+
+You have now successfully:
+
+1. Created a custom MCP server that embodies Steve Jobs' product vision approach
+2. Configured the server to work with Visual Studio Code
+3. Used the custom MCP tools to generate innovative feature ideas and specifications
+4. Built a workflow where AI-generated product concepts can be directly implemented with GitHub Copilot
+
+This powerful combination demonstrates how MCP allows you to extend GitHub Copilot's capabilities with specialized domain knowledge and create sophisticated AI workflows. Your new Steve Jobs MCP server provides product management guidance that can work alongside GitHub Copilot's coding capabilities, creating a complete AI-assisted product development pipeline.
+
+The MCP ecosystem continues to grow with new servers and capabilities. We encourage you to explore creating your own servers or contributing to the open-source MCP community!
+
+
+## Masterclass Modules
 1.  [Learn About Github Copilot](01-explore-github-copilot.md)
 2. [Jump Directly to the Workshop](02-application-setup.md)
 ---
