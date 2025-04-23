@@ -19,3 +19,5 @@ ENV/
 
 # Weather MCP Server App
 weather/
+
+.DS_S
