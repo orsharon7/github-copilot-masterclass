@@ -1,4 +1,8 @@
 # GitHub Copilot: Your AI Pair Programming Assistant
+**Continue your learning:**
+- [Next: Application Setup →](../docs/02-application-setup.md)
+- [← Back to Home Page](../README.md)
+- [← Learn About GitHub Copilot](01-explore-github-copilot.md)
 
 ## Introduction to GitHub Copilot
 
@@ -199,6 +203,12 @@ GitHub has built Copilot with several important safeguards:
 - **Filtering System**: Blocks suggestions containing offensive content or personal data
 - **Attribution**: References to code sources when appropriate
 - **Human Oversight**: Responsible AI practices with human review processes
+
+## Continue your learning:
+- [Next: Application Setup →](../docs/02-application-setup.md)
+- [← Back to Home Page](../README.md)
+- [← Learn About GitHub Copilot](../docs/01-explore-github-copilot.md)
+
 
 ## Additional Resources
 
