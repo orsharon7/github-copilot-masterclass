@@ -324,8 +324,8 @@ The MCP ecosystem continues to grow with new servers and capabilities. We encour
 
 
 ## Masterclass Modules
-1.  [Learn About Github Copilot](01-explore-github-copilot.md)
-2. [Jump Directly to the Workshop](02-application-setup.md)
+1.  [Learn About Github Copilot](docs/01-explore-github-copilot.md)
+2. [Jump Directly to the Workshop](docs/02-application-setup.md)
 ---
 
 

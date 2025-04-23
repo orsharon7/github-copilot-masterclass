@@ -59,5 +59,5 @@ Install dependencies, run the application, and test GPT-4o in real-time:
 
 ## Next Modules
 
-1. [Learn About Github Copilot](01-explore-github-copilot.md)
-2. [Creating MCP Server](03-creating-mcp-server.md)
+1. [Learn About Github Copilot](docs/01-explore-github-copilot.md)
+2. [Creating MCP Server](docs/03-creating-mcp-server.md)
