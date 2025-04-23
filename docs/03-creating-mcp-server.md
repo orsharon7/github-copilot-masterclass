@@ -22,7 +22,7 @@ Explore the following [link](https://github.com/modelcontextprotocol/servers) to
 * **Local Data Sources**: Your computer’s files, databases, and services that MCP servers can securely access
 * **Remote Services**: External systems available over the internet (e.g., through APIs) that MCP servers can connect to
 <div align="center">
-    <img src="media/MCP_Architecture.png" alt="MCP Architecture" width="600"/>
+    <img src="../media/MCP_Architecture.png" alt="MCP Architecture" width="600"/>
 </div>
 
 ### MCP Server
@@ -283,29 +283,29 @@ The configuration of an MCP server is in the .vscode/mcp.json file in your works
 
 #### Option 2: Using the VSCode Interface
 1. Create the `.vscode/mcp.json` manually and use the button in the bottom right side of the screen.  
-    ![Add MCP Server](media/Add_Server.png)
+    ![Add MCP Server](../media/Add_Server.png)
 2. Alternatively, run the MCP: Add Server command from the Command Palette and provide the server information to add a new MCP server configuration
 
 > **Note:** you can explore the following [link](https://code.visualstudio.com/docs/copilot/chat/mcp-servers) to see all configuration options for MCP servers in VSCode.
 ### 5. Use MCP tools in agent mode
 Once you have added an MCP server, you can use the tools it provides in agent mode. To use MCP tools in agent mode:
 1. Open the Chat view (⌃⌘I), and select **Agent** mode from the dropdown.  
-    ![Chat View](media/Chat_View.png)
+    ![Chat View](../media/Chat_View.png)
 2. Select the Tools button to view the list of available tools.  
-    ![Tools Button](media/Tools_Button.png)
+    ![Tools Button](../media/Tools_Button.png)
 3. Test the server by running:
     - `#generate_feature_idea brainstorm on a new feature to have a button that changes the complete color scheme of the app to be much cooler and modern`
 
-![Chat MCP](media/Chat_MCP.png)
+![Chat MCP](../media/Chat_MCP.png)
 
 4. Check out the new feature it developed, in my case it looks like this:
 <div align="center">
-    <img src="media/Color_Feature.gif" alt="Color Feature" width="600"/>
+    <img src="../media/Color_Feature.gif" alt="Color Feature" width="600"/>
 </div>
 
 5. Now you have Steve Jobs by your side to help you think, definem and design new features, by providing a context to GitHub Copilot to develop it for you. FOr instance, I asked for another feature, something that will have an impact on the user experience but will be easy to implement. This is what I got:
  <div align="center">
-    <img src="media/Final_App2.gif" alt="Emoji" width="600"/>
+    <img src="../media/Final_App2.gif" alt="Emoji" width="600"/>
 </div>
 
 
