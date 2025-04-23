@@ -93,8 +93,8 @@ To change the AI model in Copilot Chat:
 3. Select your preferred model.
 
 ## Next Modules
-2. [Jump Directly to the Workshop](02-application-setup.md)
-3. [Creating MCP Server](03-creating-mcp-server.md)
+2. [Jump Directly to the Workshop](docs/02-application-setup.md)
+3. [Creating MCP Server](docs/03-creating-mcp-server.md)
 
 ---
 
