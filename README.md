@@ -36,9 +36,9 @@ In this hands-on workshop, you'll build an interactive chat application featurin
 
 ## Workshop Modules
 
-1. [Explore GitHub Copilot](01-explore-github-copilot.md) - Learn about Copilot's features, models, and prompt engineering techniques
-2. [Build Your Application](02-application-setup.md) - Create a Flask-based chat interface and integrate it with Azure OpenAI
-3. [Create Your MCP Server](03-creating-mcp-server.md) - Build a custom tool to extend Copilot with Steve Jobs-inspired product management capabilities
+1. [Explore GitHub Copilot](docs/01-explore-github-copilot.md) - Learn about Copilot's features, models, and prompt engineering techniques
+2. [Build Your Application](docs/02-application-setup.md) - Create a Flask-based chat interface and integrate it with Azure OpenAI
+3. [Create Your MCP Server](docs/03-creating-mcp-server.md) - Build a custom tool to extend Copilot with Steve Jobs-inspired product management capabilities
 
 ## Getting Started
 
