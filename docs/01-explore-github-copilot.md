@@ -2,7 +2,7 @@
 **Continue your learning:**
 - [Next: Application Setup →](../docs/02-application-setup.md)
 - [← Back to Home Page](../README.md)
-- [← Learn About GitHub Copilot](01-explore-github-copilot.md)
+- [← Learn About GitHub Copilot](../docs/01-explore-github-copilot.md)
 
 ## Introduction to GitHub Copilot
 
