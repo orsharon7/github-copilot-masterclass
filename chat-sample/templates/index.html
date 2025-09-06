@@ -21,6 +21,42 @@
             --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
+        /* Auto theme - follows system preference */
+        @media (prefers-color-scheme: dark) {
+            [data-theme="auto"] {
+                --bg-color: #121212;
+                --text-color: #e0e0e0;
+                --chat-bg: #1e1e1e;
+                --message-bg: #2c2c2c;
+                --user-message-bg: #0057b3;
+                --user-message-color: #f0f0f0;
+                --input-bg: #2c2c2c;
+                --input-border: #444;
+                --button-bg: #0057b3;
+                --button-hover: #003b7a;
+                --border-color: #444;
+                --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        /* Auto theme light mode - when system preference is light or no preference */
+        @media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
+            [data-theme="auto"] {
+                --bg-color: #f4f4f4;
+                --text-color: #333;
+                --chat-bg: white;
+                --message-bg: #f0f0f0;
+                --user-message-bg: #007BFF;
+                --user-message-color: white;
+                --input-bg: white;
+                --input-border: #ddd;
+                --button-bg: #007BFF;
+                --button-hover: #0056b3;
+                --border-color: #ccc;
+                --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+        }
+
         /* Dark Theme */
         [data-theme="dark"] {
             --bg-color: #121212;
@@ -410,8 +446,9 @@
             const typingIndicator = document.getElementById('typing-indicator');
             const themeToggle = document.getElementById('theme-toggle');
             let currentStreamingMessage = null;
-            const themes = ['light', 'dark', 'vibrant', 'minimalist', 'retro-apple'];
+            const themes = ['auto', 'light', 'dark', 'vibrant', 'minimalist', 'retro-apple'];
             const themeNames = {
+                'auto': 'Auto',
                 'light': 'Light',
                 'dark': 'Dark',
                 'vibrant': 'Vibrant',
@@ -419,8 +456,8 @@
                 'retro-apple': 'Retro Apple'
             };
 
-            // Load saved theme from localStorage or use default
-            const savedTheme = localStorage.getItem('preferred-theme') || 'light';
+            // Load saved theme from localStorage or use auto as default
+            const savedTheme = localStorage.getItem('preferred-theme') || 'auto';
             document.body.setAttribute('data-theme', savedTheme);
             updateThemeButtonText(savedTheme);
             
@@ -488,7 +525,15 @@
 
             // Update theme button text based on current theme
             function updateThemeButtonText(theme) {
-                themeToggle.textContent = `Theme: ${themeNames[theme]}`;
+                let displayText = themeNames[theme];
+                
+                // Add system preference info for auto mode
+                if (theme === 'auto') {
+                    const systemPreference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'Dark' : 'Light';
+                    displayText = `Auto (${systemPreference})`;
+                }
+                
+                themeToggle.textContent = `Theme: ${displayText}`;
                 
                 // Add a subtle animation to indicate change
                 themeToggle.classList.add('theme-changed');
@@ -762,7 +807,7 @@
 
             // Theme toggle functionality
             themeToggle.addEventListener('click', () => {
-                const currentTheme = document.body.getAttribute('data-theme') || 'light';
+                const currentTheme = document.body.getAttribute('data-theme') || 'auto';
                 const nextTheme = themes[(themes.indexOf(currentTheme) + 1) % themes.length];
                 
                 // Apply the new theme
@@ -773,6 +818,15 @@
                 
                 // Update button text
                 updateThemeButtonText(nextTheme);
+            });
+
+            // Listen for system theme changes to update auto mode
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                const currentTheme = document.body.getAttribute('data-theme');
+                if (currentTheme === 'auto') {
+                    // Update the button text to reflect the new system preference
+                    updateThemeButtonText('auto');
+                }
             });
         });
     </script>
