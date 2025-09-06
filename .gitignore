@@ -14,8 +14,8 @@ ENV/
 # VSCODE Configuration Files
 .vscode
 
-# Copilot Instructions
-.github/copilot-instructions.md
+# Copilot Instructions - commented out to allow committing our instructions
+# .github/copilot-instructions.md
 
 # Weather MCP Server App
 weather/
