@@ -20,4 +20,4 @@ ENV/
 # Weather MCP Server App
 weather/
 
-.DS_S
+.DS_S*.egg-info/
